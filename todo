@@ -1,4 +1,6 @@
 built-in config
+    no plugins
+    status bar colors
 personal telegram config
 options
     window size
@@ -6,4 +8,5 @@ options
     min height
     detach on attach
 readme
+    based on sidebar plugin
 vertical split
