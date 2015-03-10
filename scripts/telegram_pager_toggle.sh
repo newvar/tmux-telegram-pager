@@ -82,9 +82,10 @@ split_tg_right() {
     local args=$(get_tmux_option "$telegram_pager_args" "$telegram_pager_default_args")
     local tmux=$(get_tmux_option "$telegram_pager_tmux" "$telegram_pager_default_tmux")
     local session=$(get_tmux_option "$telegram_pager_session" "$telegram_pager_default_session")
-    local tmux_conf=$(get_tmux_option "$telegram_pager_tmux_conf" $CURRENT_DIR/tmux.telegram.conf)
-    local COMMAND="tmux -L ${tmux} attach -t ${session} || tmux -L ${tmux} -f ${conf} new -s ${session} \"telegram-cli ${args} -P${port}; tmux kill-server\""
-	tmux split-window -h -l "$tg_size" -c "$PANE_CURRENT_PATH" -P -F "#{pane_id}" "echo \"${COMMAND}\""
+    local tmux_conf=$(get_tmux_option "$telegram_pager_tmux_conf" "${CURRENT_DIR}/tmux.telegram.conf")
+    local COMMAND="tmux -L ${tmux} attach -t ${session} || tmux -L ${tmux} -f ${tmux_conf} new -s ${session} \"telegram-cli ${args} -P${port}\""
+   # tmux kill-server\""
+	tmux split-window -h -l "$tg_size" -c "$PANE_CURRENT_PATH" -P -F "#{pane_id}" "$COMMAND"
 }
 create_tg() {
 	local position="$1" # left / right
