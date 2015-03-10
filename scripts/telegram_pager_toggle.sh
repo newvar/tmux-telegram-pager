@@ -78,8 +78,13 @@ desired_tg_size() {
 }
 split_tg_right() {
 	local tg_size=$(desired_tg_size)
-    local $COMMAND="tmux -L telegram attach -t tg || tmux -L telegram -f $P_DOTFILES/tmux.telegram.conf new -s tg  "telegram-cli -NWl1 -P2391; tmux kill-server"
-	tmux split-window -h -l "$tg_size" -c "$PANE_CURRENT_PATH" -P -F "#{pane_id}" "$COMMAND"
+    local port=$(get_tmux_option "$telegram_pager_port" "$telegram_pager_default_port")
+    local args=$(get_tmux_option "$telegram_pager_args" "$telegram_pager_default_args")
+    local tmux=$(get_tmux_option "$telegram_pager_tmux" "$telegram_pager_default_tmux")
+    local session=$(get_tmux_option "$telegram_pager_session" "$telegram_pager_default_session")
+    local tmux_conf=$(get_tmux_option "$telegram_pager_tmux_conf" $CURRENT_DIR/tmux.telegram.conf)
+    local COMMAND="tmux -L ${tmux} attach -t ${session} || tmux -L ${tmux} -f ${conf} new -s ${session} \"telegram-cli ${args} -P${port}; tmux kill-server\""
+	tmux split-window -h -l "$tg_size" -c "$PANE_CURRENT_PATH" -P -F "#{pane_id}" "echo \"${COMMAND}\""
 }
 create_tg() {
 	local position="$1" # left / right
@@ -90,9 +95,15 @@ current_pane_is_tg() {
 	local var="$(get_tmux_option "${REGISTERED_TG_PREFIX}-${PANE_ID}" "")"
 	[ -n "$var" ]
 }
+execute_command_from_main_pane() {
+	# get pane_id for this sidebar
+	local main_pane_id="$(get_tmux_option "${REGISTERED_TG_PREFIX}-${PANE_ID}" "")"
+	# execute the same command as if from the "main" pane
+	$CURRENT_DIR/telegram_pager_toggle.sh "$main_pane_id"
+}
 toggle_tg() {
 	if has_tg; then
-		killtg
+		kill_tg
 	else
 		#exit_if_pane_too_narrow
         create_tg "right"

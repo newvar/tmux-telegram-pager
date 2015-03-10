@@ -1,11 +1,17 @@
 #Telegram daemon port
-telegram_daemon_port="@telegram-daemon-port"
+telegram_pager_port="@telegram-daemon-port"
 # 2391 by default
-telegram_daemon_default_port="2391"
-#Timeout of Netcat connection for TG daemon
-telegram_daemon_timeout="@telegram-daemon-timeout"
-# 1 by default
-telegram_daemon_default_timeout="1"
+telegram_pager_default_port="2391"
+telegram_pager_args="@telegram-pager-args"
+telegram_pager_default_args="-NWl1"
+
+telegram_pager_tmux="@telegram-pager-tmux"
+telegram_pager_default_tmux="telegram"
+
+telegram_pager_session="@telegram-pager-session"
+telegram_pager_default_session="tg"
+
+telegram_pager_tmux_conf="@telegram-pager-tmux-conf"
 
 telegram_pager_toggle_default="C-t"
 telegram_pager_toggle="@telegram-pager-toggle"
