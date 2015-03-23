@@ -1,5 +1,5 @@
 #Telegram daemon port
-telegram_pager_port="@telegram-daemon-port"
+telegram_pager_port="@telegram-pager-port"
 # 2391 by default
 telegram_pager_default_port="2391"
 telegram_pager_args="@telegram-pager-args"
