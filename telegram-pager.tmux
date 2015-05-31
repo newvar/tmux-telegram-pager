@@ -4,13 +4,10 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "$CURRENT_DIR/scripts/shared.sh"
 source "$CURRENT_DIR/scripts/variables.sh"
+source "$CURRENT_DIR/scripts/key_bindings_helper.sh"
 
 set_toggle_pager_bindings() {
-	local key_bindings=$(get_tmux_option "$telegram_pager_toggle" "$telegram_pager_toggle_default")
-	local key
-	for key in $key_bindings; do
-		tmux bind-key "$key" run-shell "$CURRENT_DIR/scripts/telegram_pager_toggle.sh '#{pane_id}'"
-	done
+    tmux bind-key "$(telegram_pager_toggle_key)" run-shell "$CURRENT_DIR/scripts/telegram_pager_toggle.sh '#{pane_id}'"
 }
 
 main() {

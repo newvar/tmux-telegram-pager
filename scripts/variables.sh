@@ -13,9 +13,6 @@ telegram_pager_default_session="tg"
 
 telegram_pager_tmux_conf="@telegram-pager-tmux-conf"
 
-telegram_pager_toggle_default="C-t"
-telegram_pager_toggle="@telegram-pager-toggle"
-
 REGISTERED_PANE_PREFIX="@-tg-registered-pane"
 REGISTERED_TG_PREFIX="@-tg-is-tg"
 #MINIMUM_WIDTH_FOR_TG="50"
